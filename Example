@@ -1,0 +1,38 @@
+-----Example Usage-----
+local EspLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/BWG1/EspLibrary/main/Main.lua"))();
+
+local ESP_SETTINGS = { ---All of the ESP Settings
+    ChamsColor = Color3.fromRGB(255, 152, 220),
+    Teamcheck = false,
+    playerChams = false,
+}
+
+EspLib.ESP_SETTINGS.playerChams = true -- Automatically applies chams to all players in game, auto reapplies on respawn/player joining
+
+EspLib.ESP_SETTINGS.Teamcheck = true -- Changes whether or not playerChams function performs a teamcheck
+
+EspLib.createBoxHandleAdornment(part) -- Creates box chams for a singular part
+
+EspLib.addHighlight(model) -- Creates highlight for a model/part
+
+EspLib.removeHighlight(model)
+
+EspLib.addItemEsp(part, name) -- Adds item nametag esp. If name parameter isn't passed, the text will default to the part's name.
+
+EspLib.removeItemEsp(model)
+
+EspLib.addNpcName(model, name) -- Same as ItemEsp but expects a model with a child named "Head".
+
+EspLib.removeNpcName(model)
+
+EspLib.addNpcChams(model) -- Creates chams for model/npc
+
+EspLib.removeNpcChams(model)
+
+EspLib.addGlowChams(model) -- Adds visible only neon part chams
+
+EspLib.removeGlowChams() -- Only use this function for addGlowChams, do not use it for visChams.
+
+EspLib.addVisChams(model) -- Glowchams with raycasting vischeck
+
+EspLib.removeVisChams() -- Removes all active vischams
