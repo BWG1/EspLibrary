@@ -122,22 +122,27 @@ local function addNpcName(model, name)
 	if model then
 		if model:FindFirstChild("Head") then
 			local billboard = Instance.new("BillboardGui")
-			billboard.Parent = model.Head
 			billboard.AlwaysOnTop = true
 			billboard.StudsOffset = Vector3.new(0, 1.25, 0)
 			billboard.Size = UDim2.new(1, 0, 1, 0)
 			billboard.Name = "NameEsp"
+			billboard.Parent = model.Head
 			local textLabel = Instance.new("TextLabel")
 			textLabel.BackgroundTransparency = 1
 			textLabel.RichText = true
-			textLabel.TextSize = 10
-			textLabel.TextColor3 = Color3.fromRGB(255, 78, 110)
-			textLabel.Text = model.Name
-			textLabel.Size = UDim2.new(1, 0, 1, 0)
+			textLabel.TextSize = 14
+			textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+			textLabel.Font = Enum.Font.Highway
+			textLabel.Text = game.Workspace.Enemies.Noob.Name
+			textLabel.Size = UDim2.new(1, 0, 0.2, 0)
+			textLabel.TextStrokeTransparency = 0
+			textLabel.TextStrokeColor3 = Color3.fromRGB(255, 0, 200)
+			textLabel.TextScaled = false
 			textLabel.Parent = billboard
 
-			if name and name ~= nil then
-				textLabel.Text = tostring(name)
+			if model:FindFirstChild("Humanoid") then
+				model.Humanoid.HealthDisplayDistance = 0
+				model.Humanoid.DisplayDistanceType = "None"
 			end
 		else
 			warn("No Head Part Found For: " .. model.Name)
