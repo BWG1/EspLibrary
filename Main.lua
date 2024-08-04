@@ -344,7 +344,7 @@ end
 
 coroutine.wrap(updateBoxes)()
 
-local function addPointlight(model)
+local function addPointLight(model)
 	if model.PrimaryPart then
 		local pointlight = Instance.new("PointLight")
 		pointlight.Brightness = 8
@@ -365,4 +365,5 @@ return {
 	removeNpcName = removeNpcName,
 	addGlowChams = addGlowChams,
 	removeGlowChams = removeGlowChams,
+	addPointLight = addPointLight,
 }
