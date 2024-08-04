@@ -206,46 +206,65 @@ local function updateBoxes()
 end
 
 local function addGlowChams(model)
-	if ESP_SETTINGS.glowChamsEnabled then
-		local boxes = {}
-		
-		for _, part in pairs(model:GetDescendants()) do
-			if model == game.Players.LocalPlayer.Character then
-				continue
-			end
-	
-			if part:IsA("Accessory") then
-				part:Destroy()
+	for _, part in pairs(model:GetDescendants()) do
+		if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+			local glowPart = Instance.new("Part")
+
+			if part.Name == "Handle" then
 				continue
 			end
 			
-			if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
-				local glowPart = Instance.new("Part")
-	
-				if part.Name == "Handle" then
-					continue
-				end
-	
-				glowPart.Size = part.Size * 1.05
+			if part.Name ~= "Head" then
+				glowPart.Size = part.Size * 1.15
 				glowPart.CFrame = part.CFrame
 				glowPart.Transparency = 0.2
 				glowPart.Material = Enum.Material.Neon
-				glowPart.Color = Color3.fromRGB(200, 133, 255)
+				glowPart.Color = Color3.fromRGB(255, 255, 255)
 				glowPart.Anchored = false
 				glowPart.CanCollide = false
 				glowPart.Name = "GlowChams"
-				glowPart.Parent = model
-	
-				if part.Name == "Head" then
-					glowPart.Shape = "Ball"
-					glowPart.Size = Vector3.new(1.5, 1.5, 1.5)
-				end
-	
-				local weld = Instance.new("WeldConstraint")
-				weld.Part0 = glowPart
-				weld.Part1 = part
-				weld.Parent = glowPart
+				glowPart.Parent = part
+				
+				local outline = Instance.new("BoxHandleAdornment")
+				outline.Size = part.Size
+				outline.Transparency = 0.4
+				outline.Color3 = Color3.fromRGB(103, 89, 255)
+				outline.Name = "Outline"
+				outline.Parent = part
+				outline.ZIndex = 10
+				outline.Adornee = part
+				outline.AlwaysOnTop = true
 			end
+
+			if part.Name == "Head" then
+				local outline = Instance.new("CylinderHandleAdornment")
+				outline.Transparency = 0.4
+				outline.Color3 = Color3.fromRGB(103, 89, 255)
+				outline.Name = "Outline"
+				outline.ZIndex = 10
+				outline.Adornee = part
+				outline.AlwaysOnTop = true
+				outline.Height = 1.15
+				outline.CFrame = CFrame.Angles(math.rad(90), 0, 0)
+				outline.Radius = 0.6
+				outline.Parent = part
+				
+				glowPart.Shape = "Cylinder"
+				glowPart.Size = Vector3.new(1.4, 1.4, 1.4)
+				glowPart.CFrame = part.CFrame * CFrame.Angles(math.rad(90), math.rad(90), 0)
+				glowPart.Transparency = 0.2
+				glowPart.Material = Enum.Material.Neon
+				glowPart.Color = Color3.fromRGB(255, 255, 255)
+				glowPart.Anchored = false
+				glowPart.CanCollide = false
+				glowPart.Name = "GlowChams"
+				glowPart.Parent = part
+			end
+
+			local weld = Instance.new("WeldConstraint")
+			weld.Part0 = glowPart
+			weld.Part1 = part
+			weld.Parent = glowPart
 		end
 	end
 end
@@ -324,6 +343,15 @@ local function addVisChams(model)
 end
 
 coroutine.wrap(updateBoxes)()
+
+local function addPointlight(model)
+	if model.PrimaryPart then
+		local pointlight = Instance.new("PointLight")
+		pointlight.Brightness = 8
+		pointlight.Color = Color3.fromRGB(8, 255, 234)
+		pointlight.Parent = model.PrimaryPart
+	end
+end
 
 return {
 	ESP_SETTINGS = ESP_SETTINGS,
