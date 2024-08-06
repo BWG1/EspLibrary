@@ -392,18 +392,15 @@ local function createBillboardGui(rootPart)
 	local hrp2D = camera:WorldToViewportPoint(rootPart.Position)
 	local distance = (camera.CFrame.Position - rootPart.Position).magnitude
 
-	-- Calculate box size based on distance
-	local scale = math.clamp(distance / 200, 1, 2) -- Adjust the divisor and multiplier to fit your needs
+	local scale = math.clamp(distance / 200, 1, 2)
 
-	-- Get the size of the player from the BillboardGui's perspective
 	local charSize = (camera:WorldToViewportPoint(rootPart.Position - Vector3.new(0, 3, 0)).Y - camera:WorldToViewportPoint(rootPart.Position + Vector3.new(0, 2.6, 0)).Y)
 	local boxSize = Vector2.new(math.floor(charSize * scale), math.floor(charSize * scale * 1.1))
 
-	-- Create the BillboardGui
 	local billboardGui = Instance.new("BillboardGui")
 	billboardGui.Adornee = rootPart
 	billboardGui.Size = UDim2.new(0, boxSize.X, 0, boxSize.Y)
-	billboardGui.StudsOffset = Vector3.new(0, -0.5, 0) -- Center the box vertically
+	billboardGui.StudsOffset = Vector3.new(0, -0.5, 0)
 	billboardGui.AlwaysOnTop = true
 	billboardGui.Parent = rootPart
 
@@ -417,25 +414,25 @@ local function createBillboardGui(rootPart)
 		return frame
 	end
 
-	local cornerColor = Color3.new(1, 1, 1) -- Example color (white)
-	local lineLength = math.max(boxSize.X / 5, 5) -- Ensure line length is not too small
-	local lineThickness = math.max(boxSize.Y / 25, 1) -- Ensure line thickness is not too small
+	local cornerColor = Color3.new(1, 1, 1)
+	local lineLength = math.max(boxSize.X / 5, 5)
+	local lineThickness = math.max(boxSize.Y / 25, 1)
 
 	-- Top-left corner
-	createLine(UDim2.new(0, 0, 0, 0), UDim2.new(0, lineLength, 0, lineThickness), cornerColor) -- Horizontal line
-	createLine(UDim2.new(0, 0, 0, 0), UDim2.new(0, lineThickness, 0, lineLength), cornerColor) -- Vertical line
+	createLine(UDim2.new(0, 0, 0, 0), UDim2.new(0, lineLength, 0, lineThickness), cornerColor)
+	createLine(UDim2.new(0, 0, 0, 0), UDim2.new(0, lineThickness, 0, lineLength), cornerColor)
 
 	-- Top-right corner
-	createLine(UDim2.new(1, -lineLength, 0, 0), UDim2.new(0, lineLength, 0, lineThickness), cornerColor) -- Horizontal line
-	createLine(UDim2.new(1, -lineThickness, 0, 0), UDim2.new(0, lineThickness, 0, lineLength), cornerColor) -- Vertical line
+	createLine(UDim2.new(1, -lineLength, 0, 0), UDim2.new(0, lineLength, 0, lineThickness), cornerColor)
+	createLine(UDim2.new(1, -lineThickness, 0, 0), UDim2.new(0, lineThickness, 0, lineLength), cornerColor)
 
 	-- Bottom-left corner
-	createLine(UDim2.new(0, 0, 1, -lineThickness), UDim2.new(0, lineLength, 0, lineThickness), cornerColor) -- Horizontal line
-	createLine(UDim2.new(0, 0, 1, -lineLength), UDim2.new(0, lineThickness, 0, lineLength), cornerColor) -- Vertical line
+	createLine(UDim2.new(0, 0, 1, -lineThickness), UDim2.new(0, lineLength, 0, lineThickness), cornerColor)
+	createLine(UDim2.new(0, 0, 1, -lineLength), UDim2.new(0, lineThickness, 0, lineLength), cornerColor)
 
 	-- Bottom-right corner
-	createLine(UDim2.new(1, -lineLength, 1, -lineThickness), UDim2.new(0, lineLength, 0, lineThickness), cornerColor) -- Horizontal line
-	createLine(UDim2.new(1, -lineThickness, 1, -lineLength), UDim2.new(0, lineThickness, 0, lineLength), cornerColor) -- Vertical line
+	createLine(UDim2.new(1, -lineLength, 1, -lineThickness), UDim2.new(0, lineLength, 0, lineThickness), cornerColor)
+	createLine(UDim2.new(1, -lineThickness, 1, -lineLength), UDim2.new(0, lineThickness, 0, lineLength), cornerColor)
 
 	table.insert(espBillboards, billboardGui)
 end
