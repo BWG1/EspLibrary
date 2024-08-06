@@ -219,7 +219,7 @@ end
 local activeGlowChams = {}
 
 local function addGlowChams(model)
-	for _, part in pairs(model:GetDescendants()) do
+	for _, part in pairs(model:GetChildren()) do
 		if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
 			local glowPart = Instance.new("Part")
 
