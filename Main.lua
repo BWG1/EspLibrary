@@ -216,6 +216,8 @@ local function updateBoxes()
 	end
 end
 
+local activeGlowChams = {}
+
 local function addGlowChams(model)
 	for _, part in pairs(model:GetDescendants()) do
 		if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
@@ -233,7 +235,7 @@ local function addGlowChams(model)
 				glowPart.Color = Color3.fromRGB(255, 255, 255)
 				glowPart.Anchored = false
 				glowPart.CanCollide = false
-				glowPart.Name = "GlowChams"
+				glowPart.Name = "GlowCHams"
 				glowPart.Parent = part
 				
 				local outline = Instance.new("BoxHandleAdornment")
@@ -245,6 +247,7 @@ local function addGlowChams(model)
 				outline.ZIndex = 10
 				outline.Adornee = part
 				outline.AlwaysOnTop = true
+				table.insert(activeGlowChams, part)
 			end
 
 			if part.Name == "Head" then
@@ -270,6 +273,7 @@ local function addGlowChams(model)
 				glowPart.CanCollide = false
 				glowPart.Name = "GlowChams"
 				glowPart.Parent = part
+				table.insert(activeGlowChams, part)
 			end
 
 			local weld = Instance.new("WeldConstraint")
@@ -281,18 +285,10 @@ local function addGlowChams(model)
 end
 
 local function removeGlowChams()
-	for model, boxes in pairs(activeBoxes) do
-		for _, box in pairs(boxes) do
-			if box then
-				box:Destroy()
-			end
-		end
-		activeBoxes[model] = nil
-
-		for _, part in pairs(model:GetDescendants()) do
-			if part:IsA("BasePart") and part.Name == "GlowChams" then
-				part:Destroy()
-			end
+	for _, part in pairs(activeGlowChams) do
+		if part and part ~= nil then
+			part:Destroy()
+			activeGlowChams[part] = nil
 		end
 	end
 end
@@ -351,6 +347,23 @@ local function addVisChams(model)
 	end
 
 	activeBoxes[model] = boxes
+end
+
+local function removeVisChams()
+	for model, boxes in pairs(activeBoxes) do
+		for _, box in pairs(boxes) do
+			if box then
+				box:Destroy()
+			end
+		end
+		activeBoxes[model] = nil
+
+		for _, part in pairs(model:GetDescendants()) do
+			if part:IsA("BasePart") and part.Name == "GlowChams" then
+				part:Destroy()
+			end
+		end
+	end
 end
 
 coroutine.wrap(updateBoxes)()
@@ -474,6 +487,8 @@ return {
 	removeNpcName = removeNpcName,
 	addGlowChams = addGlowChams,
 	removeGlowChams = removeGlowChams,
+	addVisChams = addVisChams,
+	removeVisChams = removeVisChams,
 	addPointLight = addPointLight,
 	addCornerBox = addCornerBox,
 }
