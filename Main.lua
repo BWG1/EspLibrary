@@ -449,20 +449,18 @@ end
 coroutine.wrap(applyBoxESP)()
 
 local function applyCornersToModels()
-	while true do
-		wait()
-		destroyBoxESP()
-		if ESP_SETTINGS.boxEspEnabled then
-			for _, enemy in pairs(cornerBoxes) do
-				if enemy and enemy ~= nil and enemy:IsA("Model") and enemy.PrimaryPart then
-					createBillboardGui(enemy.PrimaryPart)
-				end
+	destroyBoxESP()
+	
+	if ESP_SETTINGS.boxEspEnabled then
+		for _, enemy in pairs(cornerBoxes) do
+			if enemy and enemy ~= nil and enemy:IsA("Model") and enemy.PrimaryPart then
+				createBillboardGui(enemy.PrimaryPart)
 			end
 		end
 	end
 end
 
-coroutine.wrap(applyCornersToModels)()
+game:GetService("RunService").Heartbeat:Connect(applyCornersToModels)
 
 return {
 	ESP_SETTINGS = ESP_SETTINGS,
