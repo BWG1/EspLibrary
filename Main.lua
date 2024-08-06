@@ -247,7 +247,7 @@ local function addGlowChams(model)
 				outline.ZIndex = 10
 				outline.Adornee = part
 				outline.AlwaysOnTop = true
-				table.insert(activeGlowChams, part)
+				table.insert(activeGlowChams, glowPart)
 			end
 
 			if part.Name == "Head" then
@@ -273,13 +273,14 @@ local function addGlowChams(model)
 				glowPart.CanCollide = false
 				glowPart.Name = "GlowChams"
 				glowPart.Parent = part
-				table.insert(activeGlowChams, part)
+				table.insert(activeGlowChams, glowPart)
 			end
 
 			local weld = Instance.new("WeldConstraint")
 			weld.Part0 = glowPart
 			weld.Part1 = part
 			weld.Parent = glowPart
+			table.insert(activeGlowChams, weld)
 		end
 	end
 end
