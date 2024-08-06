@@ -248,6 +248,7 @@ local function addGlowChams(model)
 				outline.Adornee = part
 				outline.AlwaysOnTop = true
 				table.insert(activeGlowChams, glowPart)
+				table.insert(activeGlowChams, outline)
 			end
 
 			if part.Name == "Head" then
@@ -274,6 +275,7 @@ local function addGlowChams(model)
 				glowPart.Name = "GlowChams"
 				glowPart.Parent = part
 				table.insert(activeGlowChams, glowPart)
+				table.insert(activeGlowChams, outline)
 			end
 
 			local weld = Instance.new("WeldConstraint")
@@ -418,19 +420,15 @@ local function createBillboardGui(rootPart)
 	local lineLength = math.max(boxSize.X / 5, 5)
 	local lineThickness = math.max(boxSize.Y / 25, 1)
 
-	-- Top-left corner
 	createLine(UDim2.new(0, 0, 0, 0), UDim2.new(0, lineLength, 0, lineThickness), cornerColor)
 	createLine(UDim2.new(0, 0, 0, 0), UDim2.new(0, lineThickness, 0, lineLength), cornerColor)
 
-	-- Top-right corner
 	createLine(UDim2.new(1, -lineLength, 0, 0), UDim2.new(0, lineLength, 0, lineThickness), cornerColor)
 	createLine(UDim2.new(1, -lineThickness, 0, 0), UDim2.new(0, lineThickness, 0, lineLength), cornerColor)
 
-	-- Bottom-left corner
 	createLine(UDim2.new(0, 0, 1, -lineThickness), UDim2.new(0, lineLength, 0, lineThickness), cornerColor)
 	createLine(UDim2.new(0, 0, 1, -lineLength), UDim2.new(0, lineThickness, 0, lineLength), cornerColor)
 
-	-- Bottom-right corner
 	createLine(UDim2.new(1, -lineLength, 1, -lineThickness), UDim2.new(0, lineLength, 0, lineThickness), cornerColor)
 	createLine(UDim2.new(1, -lineThickness, 1, -lineLength), UDim2.new(0, lineThickness, 0, lineLength), cornerColor)
 
