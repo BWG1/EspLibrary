@@ -452,7 +452,7 @@ local function applyCornersToModels()
 	while true do
 		wait()
 		destroyBoxESP()
-		if boxEspEnabled then
+		if ESP_SETTINGS.boxEspEnabled then
 			for _, enemy in pairs(cornerBoxes) do
 				if enemy and enemy ~= nil and enemy:IsA("Model") and enemy.PrimaryPart then
 					createBillboardGui(enemy.PrimaryPart)
