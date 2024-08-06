@@ -3,6 +3,7 @@ local ESP_SETTINGS = {
     Teamcheck = false,
     playerChams = false,
     glowChamsEnabled = false,
+    boxEspEnabled = false,
 }
 
 local function isValidSurface(part)
@@ -133,12 +134,17 @@ local function addNpcName(model, name)
 			textLabel.TextSize = 14
 			textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 			textLabel.Font = Enum.Font.Highway
-			textLabel.Text = game.Workspace.Enemies.Noob.Name
 			textLabel.Size = UDim2.new(1, 0, 0.2, 0)
 			textLabel.TextStrokeTransparency = 0
 			textLabel.TextStrokeColor3 = Color3.fromRGB(255, 0, 200)
 			textLabel.TextScaled = false
 			textLabel.Parent = billboard
+
+			if name and name ~= nil then
+			     textLabel.Text = name
+			else
+			     textLabel.Text = model.Name
+			end
 
 			if model:FindFirstChild("Humanoid") then
 				model.Humanoid.HealthDisplayDistance = 0
@@ -358,6 +364,106 @@ local function addPointLight(model)
 	end
 end
 
+local espBillboards = {}
+
+local function destroyBoxESP()
+	for _, billboard in pairs(espBillboards) do
+		billboard:Destroy()
+	end
+	espBillboards = {}
+end
+
+local function createBillboardGui(rootPart)
+	local camera = game.Workspace.CurrentCamera
+	local hrp2D = camera:WorldToViewportPoint(rootPart.Position)
+	local distance = (camera.CFrame.Position - rootPart.Position).magnitude
+
+	-- Calculate box size based on distance
+	local scale = math.clamp(distance / 200, 1, 2) -- Adjust the divisor and multiplier to fit your needs
+
+	-- Get the size of the player from the BillboardGui's perspective
+	local charSize = (camera:WorldToViewportPoint(rootPart.Position - Vector3.new(0, 3, 0)).Y - camera:WorldToViewportPoint(rootPart.Position + Vector3.new(0, 2.6, 0)).Y)
+	local boxSize = Vector2.new(math.floor(charSize * scale), math.floor(charSize * scale * 1.1))
+
+	-- Create the BillboardGui
+	local billboardGui = Instance.new("BillboardGui")
+	billboardGui.Adornee = rootPart
+	billboardGui.Size = UDim2.new(0, boxSize.X, 0, boxSize.Y)
+	billboardGui.StudsOffset = Vector3.new(0, -0.5, 0) -- Center the box vertically
+	billboardGui.AlwaysOnTop = true
+	billboardGui.Parent = rootPart
+
+	local function createLine(position, size, color)
+		local frame = Instance.new("Frame")
+		frame.Position = position
+		frame.Size = size
+		frame.BackgroundColor3 = color
+		frame.BorderSizePixel = 0
+		frame.Parent = billboardGui
+		return frame
+	end
+
+	local cornerColor = Color3.new(1, 1, 1) -- Example color (white)
+	local lineLength = math.max(boxSize.X / 5, 5) -- Ensure line length is not too small
+	local lineThickness = math.max(boxSize.Y / 25, 1) -- Ensure line thickness is not too small
+
+	-- Top-left corner
+	createLine(UDim2.new(0, 0, 0, 0), UDim2.new(0, lineLength, 0, lineThickness), cornerColor) -- Horizontal line
+	createLine(UDim2.new(0, 0, 0, 0), UDim2.new(0, lineThickness, 0, lineLength), cornerColor) -- Vertical line
+
+	-- Top-right corner
+	createLine(UDim2.new(1, -lineLength, 0, 0), UDim2.new(0, lineLength, 0, lineThickness), cornerColor) -- Horizontal line
+	createLine(UDim2.new(1, -lineThickness, 0, 0), UDim2.new(0, lineThickness, 0, lineLength), cornerColor) -- Vertical line
+
+	-- Bottom-left corner
+	createLine(UDim2.new(0, 0, 1, -lineThickness), UDim2.new(0, lineLength, 0, lineThickness), cornerColor) -- Horizontal line
+	createLine(UDim2.new(0, 0, 1, -lineLength), UDim2.new(0, lineThickness, 0, lineLength), cornerColor) -- Vertical line
+
+	-- Bottom-right corner
+	createLine(UDim2.new(1, -lineLength, 1, -lineThickness), UDim2.new(0, lineLength, 0, lineThickness), cornerColor) -- Horizontal line
+	createLine(UDim2.new(1, -lineThickness, 1, -lineLength), UDim2.new(0, lineThickness, 0, lineLength), cornerColor) -- Vertical line
+
+	table.insert(espBillboards, billboardGui)
+end
+
+local cornerBoxes = {}
+
+local function addCornerBox(model)
+	table.insert(cornerBoxes, model)
+end
+
+local function applyBoxESP()
+	while true do
+		wait()
+		destroyBoxESP()
+		if boxEspEnabled then
+			for _, enemy in pairs(enemyteam:GetChildren()) do
+				if enemy:IsA("Model") and enemy:FindFirstChild("HumanoidRootPart") then
+					createBillboardGui(enemy.HumanoidRootPart)
+				end
+			end
+		end
+	end
+end
+
+coroutine.wrap(applyBoxESP)()
+
+local function applyCornersToModels()
+	while true do
+		wait()
+		destroyBoxESP()
+		if boxEspEnabled then
+			for _, enemy in pairs(cornerBoxes) do
+				if enemy and enemy ~= nil and enemy:IsA("Model") and enemy.PrimaryPart then
+					createBillboardGui(enemy.PrimaryPart)
+				end
+			end
+		end
+	end
+end
+
+coroutine.wrap(applyCornersToModels)()
+
 return {
 	ESP_SETTINGS = ESP_SETTINGS,
 	addHighlight = addHighlight,
@@ -371,4 +477,5 @@ return {
 	addGlowChams = addGlowChams,
 	removeGlowChams = removeGlowChams,
 	addPointLight = addPointLight,
+	addCornerBox = addCornerBox,
 }
