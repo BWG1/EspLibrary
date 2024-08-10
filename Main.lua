@@ -320,7 +320,7 @@ local function addVisChams(model)
 			glowPart.CFrame = part.CFrame
 			glowPart.Transparency = 0.2
 			glowPart.Material = Enum.Material.Neon
-			glowPart.Color = Color3.fromRGB(200, 133, 255)
+			glowPart.Color = Color3.fromRGB(255, 152, 22)
 			glowPart.Anchored = false
 			glowPart.CanCollide = false
 			glowPart.Name = "GlowChams"
