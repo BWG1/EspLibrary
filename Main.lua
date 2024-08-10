@@ -241,7 +241,7 @@ local function addGlowChams(model)
 				local outline = Instance.new("BoxHandleAdornment")
 				outline.Size = part.Size
 				outline.Transparency = 0.4
-				outline.Color3 = Color3.fromRGB(103, 89, 255)
+				outline.Color3 = Color3.fromRGB(255, 152, 22)
 				outline.Name = "Outline"
 				outline.Parent = part
 				outline.ZIndex = 10
@@ -254,7 +254,7 @@ local function addGlowChams(model)
 			if part.Name == "Head" then
 				local outline = Instance.new("CylinderHandleAdornment")
 				outline.Transparency = 0.4
-				outline.Color3 = Color3.fromRGB(103, 89, 255)
+				outline.Color3 = Color3.fromRGB(255, 152, 22)
 				outline.Name = "Outline"
 				outline.ZIndex = 10
 				outline.Adornee = part
