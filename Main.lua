@@ -132,8 +132,8 @@ local function addNpcName(model, name)
 			textLabel.BackgroundTransparency = 1
 			textLabel.RichText = true
 			textLabel.TextSize = 11
-			textLabel.TextColor3 = Color3.fromRGB(255, 152, 220))
-			textLabel.Font = Enum.Font.Gotham
+			textLabel.TextColor3 = Color3.fromRGB(255, 152, 220)
+			textLabel.Font = Enum.Font.SourceSans
 			textLabel.Size = UDim2.new(1, 0, 0.2, 0)
 			textLabel.TextStrokeTransparency = 0
 			textLabel.TextStrokeColor3 = Color3.fromRGB(255, 0, 200)
