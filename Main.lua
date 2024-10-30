@@ -131,9 +131,9 @@ local function addNpcName(model, name)
 			local textLabel = Instance.new("TextLabel")
 			textLabel.BackgroundTransparency = 1
 			textLabel.RichText = true
-			textLabel.TextSize = 14
-			textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-			textLabel.Font = Enum.Font.Highway
+			textLabel.TextSize = 11
+			textLabel.TextColor3 = Color3.fromRGB(255, 152, 220))
+			textLabel.Font = Enum.Font.SourceSans
 			textLabel.Size = UDim2.new(1, 0, 0.2, 0)
 			textLabel.TextStrokeTransparency = 0
 			textLabel.TextStrokeColor3 = Color3.fromRGB(255, 0, 200)
@@ -240,8 +240,8 @@ local function addGlowChams(model)
 				
 				local outline = Instance.new("BoxHandleAdornment")
 				outline.Size = part.Size
-				outline.Transparency = 0.4
-				outline.Color3 = Color3.fromRGB(255, 152, 22)
+				outline.Transparency = 0
+				outline.Color3 = Color3.fromRGB(255, 152, 220)
 				outline.Name = "Outline"
 				outline.Parent = part
 				outline.ZIndex = 10
