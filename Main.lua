@@ -46,10 +46,11 @@ local function applyChams()
 						if ESP_SETTINGS.Teamcheck and player.Team == game.Players.LocalPlayer.Team then
 							continue
 						end
+						
 						for _, part in pairs(player.Character:GetChildren()) do
-                            if not part:FindFirstChild("BoxHandleAdornment") then
-                               	createBoxHandleAdornment(part)
-                            end
+				                        if not part:FindFirstChild("BoxHandleAdornment") then
+				                		createBoxHandleAdornment(part)
+				                        end
 						end
 					end
 				end
@@ -241,7 +242,7 @@ local function addGlowChams(model)
 				local outline = Instance.new("BoxHandleAdornment")
 				outline.Size = part.Size
 				outline.Transparency = 0
-				outline.Color3 = Color3.fromRGB(255, 152, 220)
+				outline.Color3 = Color3.fromRGB(0, 143, 156)
 				outline.Name = "Outline"
 				outline.Parent = part
 				outline.ZIndex = 10
@@ -254,7 +255,7 @@ local function addGlowChams(model)
 			if part.Name == "Head" then
 				local outline = Instance.new("CylinderHandleAdornment")
 				outline.Transparency = 0.4
-				outline.Color3 = Color3.fromRGB(255, 152, 22)
+				outline.Color3 = Color3.fromRGB(0, 143, 156)
 				outline.Name = "Outline"
 				outline.ZIndex = 10
 				outline.Adornee = part
