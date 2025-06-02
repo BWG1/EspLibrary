@@ -69,7 +69,7 @@ local function applyChams()
 	end
 end
 
-coroutine.wrap(applyChams)()
+--coroutine.wrap(applyChams)()
 
 local function addHighlight(model)
 	if model then
@@ -368,7 +368,7 @@ local function removeVisChams()
 	end
 end
 
-coroutine.wrap(updateBoxes)()
+--coroutine.wrap(updateBoxes)()
 
 local function addPointLight(model)
 	if model.PrimaryPart then
@@ -454,7 +454,7 @@ local function applyBoxESP()
 	end
 end
 
-coroutine.wrap(applyBoxESP)()
+--coroutine.wrap(applyBoxESP)()
 
 local function applyCornersToModels()
 	destroyBoxESP()
